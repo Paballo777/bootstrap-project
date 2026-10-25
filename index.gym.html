@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Coleman's Palace Gym - Strength starts here.">
+    <title>Coleman's Palace | Gym</title>
+
+    <!--BOOTSTRAP CSS-->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --black: #0d0a09;
+            --black-soft: #15110e;
+            --brown: #9f6840;
+            --brown-dark: #70492f;
+            --brown-light: #e0b98b;
+            --panel: #1b1512;
+            --panel-alt: #221b17;
+            --text: #f4efe9;
+            --muted: #d6c3b0;
+            --line: rgba(224, 185, 139, 0.22);
+            --shadow: rgba(0, 0, 0, 0.38);
+        }
+
+        html[data-bs-theme="dark"] {
+            --black: #0b0908;
+            --black-soft: #15110e;
+            --brown: #a76d42;
+            --brown-dark: #7a4d2b;
+            --brown-light: #f0d0a5;
+            --panel: #1a1411;
+            --panel-alt: #221b17;
+            --text: #f7f1ea;
+            --muted: #d8c4ad;
+            --line: rgba(240, 208, 165, 0.18);
+            --shadow: rgba(0, 0, 0, 0.42);
+        }
+
+        html[data-bs-theme="light"] {
+            --black: #f4efe9;
+            --black-soft: #ffffff;
+            --brown: #8B5E3C;
+            --brown-dark: #69452d;
+            --brown-light: #d8a778;
+            --panel: #f9f4ef;
+            --panel-alt: #f1e8df;
+            --text: #1c140f;
+            --muted: #5d4b40;
+            --line: rgba(91, 62, 41, 0.12);
+            --shadow: rgba(47, 30, 18, 0.08);
+        }
+
+        body {
+            background: linear-gradient(180deg, var(--black) 0%, #120d0a 100%) !important;
+            color: var(--text) !important;
+            font-family: system-ui, sans-serif;
+        }
+
+        .site-header {
+            background: var(--brown) !important;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(139, 94, 60, 0.2);
+            position: relative;
+            z-index: 1050;
+            overflow: visible;
+        }
+
+        #mainNav {
+            position: relative;
+            z-index: 30;
+            overflow: visible;
+        }
+
+        .navbar-brand span {
+            color: var(--brown-dark) !important;
+        }
+
+        .nav-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 8, 7, 0.12);
+            z-index: 1040;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.28s ease;
+        }
+
+        .nav-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .navbar-collapse.show .navbar-nav,
+        .navbar-collapse.collapsing .navbar-nav {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .navbar-collapse {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            left: auto;
+            width: min(300px, 84vw);
+            background: rgba(19, 15, 12, 0.96);
+            border: 1px solid rgba(201, 160, 122, 0.32);
+            border-radius: 20px;
+            box-shadow: 0 20px 44px rgba(0, 0, 0, 0.22);
+            padding: 1rem 0.85rem;
+            transform: translate3d(24px, -10px, 0) scale(0.98);
+            opacity: 0;
+            visibility: hidden;
+            transition: transform 0.32s ease, opacity 0.32s ease, visibility 0.32s ease;
+            z-index: 1060;
+            overflow: visible;
+        }
+
+        .navbar-collapse.show {
+            transform: translate3d(0, 0, 0) scale(1);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .navbar-collapse.collapsing {
+            visibility: visible;
+            opacity: 1;
+            transform: translate3d(0, 0, 0) scale(1);
+        }
+
+        .navbar-nav {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.25rem 0;
+        }
+
+        .navbar-nav .nav-item {
+            width: 100%;
+        }
+
+        .nav-link,
+        .nav-cta {
+            display: block;
+            width: 100%;
+            padding: 0.95rem 1rem;
+            border-radius: 12px;
+            color: #fff !important;
+            text-align: left;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .nav-link:hover,
+        .nav-link:focus,
+        .nav-link.active {
+            background: rgba(139, 94, 60, 0.18);
+            color: #fff !important;
+            border-color: rgba(201, 160, 122, 0.26);
+        }
+
+        .nav-cta {
+            text-align: center;
+            margin-top: 0.4rem;
+        }
+
+        .navbar-toggler {
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 12px;
+            padding: 0.55rem 0.7rem;
+        }
+
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            min-width: 96px;
+            padding: 0.5rem 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+            background: rgba(18, 14, 12, 0.38);
+            color: var(--text);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 10px 22px rgba(0, 0, 0, 0.14);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+            position: relative;
+            line-height: 1;
+        }
+
+        .theme-toggle:hover,
+        .theme-toggle:focus-visible {
+            transform: translateY(-1px);
+            border-color: rgba(240, 208, 165, 0.46);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 14px 26px rgba(0, 0, 0, 0.2);
+            background: rgba(25, 19, 15, 0.52);
+        }
+
+        .theme-toggle:focus-visible {
+            outline: 2px solid rgba(240, 208, 165, 0.7);
+            outline-offset: 2px;
+        }
+
+        .theme-toggle i {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background: rgba(240, 208, 165, 0.18);
+            color: var(--brown-light);
+            font-size: 0.9rem;
+        }
+
+        .theme-toggle span {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            line-height: 1;
+            color: #f8f2ec;
+        }
+
+        html[data-bs-theme="light"] .theme-toggle {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: rgba(118, 79, 54, 0.2);
+            color: #1f1712;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 10px 22px rgba(77, 54, 38, 0.12);
+        }
+
+        html[data-bs-theme="light"] .theme-toggle span {
+            color: #1f1712;
+        }
+
+        @media (max-width: 991px) {
+            #mainNav {
+                background: rgba(15, 14, 13, 0.750) !important;
+                border-radius: 16px;
+                padding: 1.5rem;
+                margin-top: 1rem;
+                border: 1px solid rgba(201, 160, 122, 0.39);
+                position: relative;
+            }
+        }
+
+        .hero {
+            min-height: 95vh;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.4)), url(https://tse1.mm.bing.net/th/id/OIP.t2fl8GXkLwuGJaIjUnCPGAHaJ2?r=0&rs=1&pid=ImgDetMain&o=7&rm=3) center/cover;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 span {
+            color: var(--brown-light) !important;
+        }
+
+        .btn-brown {
+            background: var(--brown) !important;
+            color: white !important;
+            border: none !important;
+            font-weight: 600;
+        }
+
+        .btn-brown:hover {
+            background: var(--brown-dark) !important;
+            color: white !important;
+        }
+
+        .text-link {
+            color: #ffffff !important;
+            text-decoration: none !important;
+        }
+
+        .text-link:hover,
+        .text-link:focus {
+            color: #f3e5d7 !important;
+            text-decoration: none !important;
+        }
+
+        .membership-card {
+            background: white !important;
+            color: var(--black) !important;
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+
+        .membership-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .menbership-card.featured {
+            border: 2px solid var(--brown) !important;
+        }
+
+        .price {
+            color: var(--brown-dark) !important;
+            font-size: 2.5rem;
+            font-weight: 900;
+        }
+
+        .price span {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .testimonial-card {
+            background: #1E1A17 !important;
+            color: white !important;
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(201, 160, 122, 0.15);
+        }
+
+        #testimonials {
+            background:
+                linear-gradient(90deg, rgba(12, 10, 9, 0.82), rgba(12, 10, 9, 0.6)),
+                url("https://cdn.shopify.com/s/files/1/0196/0158/8324/collections/gym-weights.jpg?v=1597905551") center/cover no-repeat;
+            padding-bottom: 80px;
+        }
+
+        .testimonial-slider {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .testimonial-slide {
+            background: rgba(30, 26, 23, 0.92);
+            border: 1px solid rgba(201, 160, 122, 0.15);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .testimonial-form-card {
+            margin-top: 1.5rem;
+            background: rgba(20, 16, 13, 0.9);
+            border: 1px solid rgba(201, 160, 122, 0.2);
+            border-radius: 22px;
+            padding: 1.5rem;
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.2);
+        }
+
+        .testimonial-form-card h3 {
+            color: #fff !important;
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+        }
+
+        .testimonial-form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .testimonial-form .form-label {
+            color: #f2e6d9 !important;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .testimonial-form .form-control,
+        .testimonial-form textarea {
+            background: rgba(255, 255, 255, 0.04) !important;
+            border: 1px solid rgba(201, 160, 122, 0.32) !important;
+            border-radius: 12px !important;
+            color: #fff !important;
+            padding: 0.9rem 1rem;
+        }
+
+        .testimonial-form .form-control::placeholder,
+        .testimonial-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6) !important;
+        }
+
+        .testimonial-form .btn-brown {
+            width: fit-content;
+            min-width: 170px;
+        }
+
+        #membership {
+            background: #f4efe9 !important;
+            padding-top: 40px;
+            padding-bottom: 90px;
+        }
+
+        #membership .card {
+            background: #1f1b18 !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(139, 94, 60, 0.4) !important;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12) !important;
+            transform: translateY(-18px);
+        }
+
+        #membership .card-title,
+        #membership .card-text,
+        #membership .card-price {
+            color: #fff !important;
+        }
+
+        #membership .card-price {
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .community-banner {
+            background: var(--brown) !important;
+        }
+
+        #community {
+            background:
+                linear-gradient(90deg, rgba(17, 12, 9, 0.82), rgba(17, 12, 9, 0.48)),
+                url("data:image/webp;base64,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") center/cover no-repeat;
+            border-radius: 0;
+        }
+
+        #community .eyebrow,
+        #community .section-title,
+        #community p,
+        #community .lead,
+        #community .text-link {
+            color: #fff !important;
+        }
+
+        #contact {
+            background:
+                linear-gradient(90deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.22)),
+                url("https://i.pinimg.com/736x/35/f6/9a/35f69a55d5b9603bb2fdc4a5923f34ff.jpg") center/cover no-repeat;
+            color: #1c140f !important;
+        }
+
+        #contact .eyebrow,
+        #contact .section-title,
+        #contact p,
+        #contact small,
+        #contact label,
+        #contact .form-label,
+        #contact .text-link {
+            color: #1c140f !important;
+        }
+
+        #contact .form-control,
+        #contact input,
+        #contact textarea {
+            background: rgba(255, 255, 255, 0.72) !important;
+            border: 1px solid rgba(81, 55, 34, 0.25) !important;
+            color: #1c140f !important;
+        }
+
+        #contact .form-control::placeholder {
+            color: rgba(28, 20, 15, 0.72) !important;
+        }
+
+        #about {
+            background: #22150c !important;
+            padding-bottom: 72px;
+        }
+
+        .section-pad {
+            padding: 100px 0;
+        }
+
+        .section-title,
+        p,
+        h1,
+        h2,
+        h3,
+        blockquote,
+        small {
+            color: white !important;
+        }
+
+        .eyebrow {
+            color: var(--brown-light) !important;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .reveal {
+            opacity: 1;
+            transform: translateY(30px);
+            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact-form {
+            border-radius: 20px;
+        }
+
+        .site-footer {
+            background: var(--brown) !important;
+            color: #fff !important;
+            padding: 2rem 0;
+        }
+
+        .site-footer p,
+        .site-footer span,
+        .site-footer a,
+        .site-footer .footer-heading {
+            color: #fff !important;
+            text-decoration: none !important;
+        }
+
+        .site-footer .row {
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .site-footer .social-links,
+        .site-footer .footer-links {
+            display: flex !important;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.9rem 1.2rem;
+            margin: 0 auto;
+            padding: 0;
+            list-style: none;
+            width: 100%;
+        }
+
+        .site-footer .social-links li,
+        .site-footer .footer-links li {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        .site-footer .col-lg-6,
+        .site-footer .col-lg-3 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .site-footer .footer-links {
+            max-width: 760px;
+        }
+
+        .site-footer a:hover,
+        .site-footer a:focus {
+            opacity: 0.85;
+            text-decoration: none !important;
+        }
+
+        scroll-cue {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="navBackdrop" class="nav-backdrop" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <nav id="mainNav" class="navbar container" aria-label="Main navigation">
+            <a class="navbar-brand" href="#home" aria-label="Coleman's Palace home">
+                <span class="brand-mark">C</span>
+                <span class="brand-word">
+                    <span>Coleman's</span>
+                    <small>Palace</small>
+                </span>
+            </a>
+
+            <div class="d-flex align-items-center ms-auto ms-lg-0 gap-2">
+                <button id="themeToggle" class="theme-toggle btn btn-sm btn-outline-light" type="button"
+                    aria-label="Toggle color mode" aria-pressed="false">
+                    <i id="themeIcon" class="bi bi-moon-stars-fill"></i>
+                    <span id="themeLabel">dark</span>
+                </button>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#membership">Membership</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#community">Offers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item ms-lg-2"><a class="btn nav-cta" href="#contact">Join Now</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main">
+        <section class="hero" id="home">
+            <div class="hero-shade"></div>
+            <div class="container hero-content">
+                <p class="eyebrow reveal">DISCIPLINE. STRENGTH. COMMUNITY.</p>
+                <h1 class="display-2 fw-black reveal">YOUR WORK.<br><span>YOUR LEGACY</span></h1>
+                <p class="hero-copy reveal">Train with purpose. Build strength that lasts. Find your place at Coleman's
+                    Palace.</p>
+                <div class="d-flex flex-wrap gap-3 reveal">
+                    <a href="#membership" class="btn btn-brown btn-lg">Explore Membership</a>
+                    <a href="#contact" class="btn btn-outline-light btn-lg">Contact Us</a>
+                </div>
+            </div>
+            <a href="#about" class="scroll-cue" aria-label="scroll down"></a>
+        </section>
+
+        <section class="section-padding" id="about">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6 reveal">
+                        <p class="eyebrow">MORE THAN A GYM</p>
+                        <h2 class="section-title">build on effort<br><span>build on community</span></h2>
+                    </div>
+                    <div class="col-lg-7 reveal">
+                        <p class="lead">Whether you are starting out or chasing a new personal best, you belong here.
+                        </p>
+                        <p>Enjoy a supportive environment where you can grow and thrive. Quality equipment, expert
+                            guidance, and a community that motivates you to reach your goals. Different options and
+                            budgets for everyone.</p>
+                        <a href="#memberships" class="text-link">Explore Memberships</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding bg-light" id="membership">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-4 reveal">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <h3 class="card-title">Basic</h3>
+                                    <p class="card-text">Access to gym equipment and facilities during staffed hours.
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="card-price">R200/month</p>
+                                    <a href="#contact" class="btn btn-brown btn-sm">Join Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 reveal">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <h3 class="card-title">Standard</h3>
+                                    <p class="card-text">Includes Basic membership benefits plus access to group classes
+                                        and personal training sessions.</p>
+                                </div>
+                                <div>
+                                    <p class="card-price">R400/month</p>
+                                    <a href="#contact" class="btn btn-brown btn-sm">Join Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 reveal">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <h3 class="card-title">Premium</h3>
+                                    <p class="card-text">All Standard membership benefits plus unlimited access to all
+                                        facilities, premium amenities, and exclusive events.</p>
+                                </div>
+                                <div>
+                                    <p class="card-price">R600/month</p>
+                                    <a href="#contact" class="btn btn-brown btn-sm">Join Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding" id="testimonials">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6 reveal">
+                        <p class="eyebrow">WHAT OUR MEMBERS SAY</p>
+                        <h2 class="section-title">real results<br><span>real stories</span></h2>
+                    </div>
+                    <div class="col-lg-7 reveal">
+                        <div class="testimonial-slider">
+                            <div class="testimonial-slide">
+                                <p class="testimonial-text">"Joining Coleman's Palace Gym has been a game-changer for
+                                    me. The trainers are knowledgeable and supportive, and the community is incredibly
+                                    motivating. I've seen amazing results in my strength and overall fitness."</p>
+                                <p class="testimonial-author">- John D.</p>
+                            </div>
+                            <div class="testimonial-slide">
+                                <p class="testimonial-text">"I love the variety of classes offered at Coleman's Palace
+                                    Gym. The instructors are fantastic, and the atmosphere is always positive. It's a
+                                    place where I feel challenged and inspired to push myself further."</p>
+                                <p class="testimonial-author">- Sarah K.</p>
+                            </div>
+                            <div class="testimonial-slide">
+                                <p class="testimonial-text">"The facilities at Coleman's Palace Gym are top-notch. From
+                                    the equipment to the amenities, everything is designed to help you achieve your
+                                    fitness goals. I couldn't be happier with my membership!"</p>
+                                <p class="testimonial-author">- Mike L.</p>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-form-card">
+                            <h3>Share your story</h3>
+                            <form id="testimonialForm" class="testimonial-form needs-validation" novalidate>
+                                <div>
+                                    <label for="testimonialName" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="testimonialName" name="testimonialName"
+                                        placeholder="Your name" required>
+                                </div>
+                                <div>
+                                    <label for="testimonialComment" class="form-label">Testimony</label>
+                                    <textarea id="testimonialComment" name="testimonialComment" class="form-control"
+                                        rows="4" placeholder="Tell us how Coleman's Palace has helped you..."
+                                        required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-brown">Add Testimony</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding bg-light" id="community">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6 reveal">
+                        <p class="eyebrow">SPECIAL OFFERS</p>
+                        <h2 class="section-title">Pensioner & Disabled<br><span>Members Offers</span></h2>
+                    </div>
+                    <div class="col-lg-7 reveal">
+                        <p class="lead">We value our pensioner and disabled members and want to ensure that they have
+                            access to our facilities and services. We offer special discounts and packages to make it
+                            easier for them to stay active and healthy.</p>
+                        <p class="lead fw-semibold text-white">Pensioners and disabled members get 50% off each deal
+                            they choose.</p>
+                        <p>Our team is dedicated to providing a welcoming and inclusive environment for all members,
+                            regardless of age or ability. We believe that everyone deserves the opportunity to lead a
+                            healthy lifestyle, and we are committed to supporting our pensioner and disabled members in
+                            achieving their fitness goals.</p>
+                        <a href="#contact" class="text-link">Contact Us for More Information</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding contact-section" id="contact">
+            <div class="container">
+                <div class="row g-5">
+                    <div class="col-lg-5 reveal">
+                        <p class="eyebrow">TAKE THE FIRST STEP</p>
+                        <h2 class="section-title">let's get<span> you started</span></h2>
+                        <p>Complete the form below to get started with your membership.</p>
+                        <div class="contact-details">
+                            <small>call us</small>
+                            <a href="tel:+1234567890" class="text-link d-block">+1 (234) 567-890</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 reveal">
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" placeholder="John">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" placeholder="Doe">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email"
+                                        placeholder="john.doe@example.com">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" id="phone" placeholder="(123) 456-7890">
+                                </div>
+                                <div class="col-12">
+                                    <label for="message" class="form-label">Message</label>
+                                    <textarea class="form-control" id="message" rows="4"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-brown">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row g-4 align-items-start">
+                <div class="col-lg-4 reveal">
+                    <div class="footer-brand">
+                        <span class="brand-mark">C</span>
+                        <span>Coleman's Palace</span>
+                    </div>
+                    <p class="mb-3">Strength, discipline, and community for every stage of your fitness journey.</p>
+                    <a href="tel:+1234567890">+1 (234) 567-890</a>
+                </div>
+
+                <div class="col-lg-2 reveal">
+                    <h5 class="mb-3 fw-bold">Explore</h5>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#membership">Plans</a></li>
+                        <li><a href="#community">Offers</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 reveal">
+                    <h5 class="mb-3 fw-bold">Visit</h5>
+                    <p class="mb-1">23 Iron Avenue</p>
+                    <p class="mb-1">Johannesburg, SA</p>
+                    <p class="mb-0">Mon - Sat: 5:00 AM - 10:00 PM</p>
+                </div>
+
+                <div class="col-lg-3 reveal">
+                    <h5 class="mb-3 fw-bold">Follow</h5>
+                    <ul class="social-links">
+                        <li><a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a></li>
+                        <li><a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a></li>
+                        <li><a href="#" aria-label="X"><i class="bi bi-twitter-x"></i></a></li>
+                        <li><a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <p class="mb-0">&copy; <span id="year"></span> Coleman's Palace Gym. All rights reserved.</p>
+                <p class="mb-0">Built by <a href="https://github.com/Paballo777" target="_blank"
+                        rel="noopener noreferrer">Paballo Mashigo</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const html = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeLabel = document.getElementById('themeLabel');
+        const navBackdrop = document.getElementById('navBackdrop');
+        const navMenu = document.getElementById('navbarNav');
+        const testimonialForm = document.getElementById('testimonialForm');
+        const testimonialNameInput = document.getElementById('testimonialName');
+        const testimonialCommentInput = document.getElementById('testimonialComment');
+        const testimonialSlider = document.querySelector('.testimonial-slider');
+
+        const defaultTestimonials = [
+            {
+                name: 'John D.',
+                text: 'Joining Coleman\'s Palace Gym has been a game-changer for me. The trainers are knowledgeable and supportive, and the community is incredibly motivating. I\'ve seen amazing results in my strength and overall fitness.'
+            },
+            {
+                name: 'Sarah K.',
+                text: 'I love the variety of classes offered at Coleman\'s Palace Gym. The instructors are fantastic, and the atmosphere is always positive. It\'s a place where I feel challenged and inspired to push myself further.'
+            },
+            {
+                name: 'Mike L.',
+                text: 'The facilities at Coleman\'s Palace Gym are top-notch. From the equipment to the amenities, everything is designed to help you achieve your fitness goals. I couldn\'t be happier with my membership!'
+            }
+        ];
+
+        const getTestimonials = () => {
+            try {
+                const saved = JSON.parse(localStorage.getItem('colemanTestimonials'));
+                return Array.isArray(saved) && saved.length ? saved : defaultTestimonials;
+            } catch (error) {
+                return defaultTestimonials;
+            }
+        };
+
+        const saveTestimonials = (items) => {
+            localStorage.setItem('colemanTestimonials', JSON.stringify(items));
+        };
+
+        const renderTestimonials = () => {
+            if (!testimonialSlider) return;
+
+            const items = getTestimonials();
+            testimonialSlider.innerHTML = '';
+
+            items.forEach(({ name, text }) => {
+                const slide = document.createElement('div');
+                slide.className = 'testimonial-slide';
+
+                const quote = document.createElement('p');
+                quote.className = 'testimonial-text';
+                quote.textContent = `"${text}"`;
+
+                const author = document.createElement('p');
+                author.className = 'testimonial-author';
+                author.textContent = `- ${name}`;
+
+                slide.appendChild(quote);
+                slide.appendChild(author);
+                testimonialSlider.appendChild(slide);
+            });
+        };
+
+        const setTheme = (theme) => {
+            html.setAttribute('data-bs-theme', theme);
+            localStorage.setItem('colemanTheme', theme);
+            themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
+
+            if (theme === 'dark') {
+                themeIcon.className = 'bi bi-moon-stars-fill';
+                themeLabel.textContent = 'dark';
+            } else {
+                themeIcon.className = 'bi bi-sun-fill';
+                themeLabel.textContent = 'light';
+            }
+        };
+
+        const savedTheme = localStorage.getItem('colemanTheme') || 'dark';
+        setTheme(savedTheme);
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const nextTheme = html.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+                setTheme(nextTheme);
+            });
+        }
+
+        if (testimonialForm) {
+            testimonialForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                if (!testimonialForm.checkValidity()) {
+                    testimonialForm.classList.add('was-validated');
+                    testimonialForm.reportValidity();
+                    return;
+                }
+
+                const newTestimonial = {
+                    name: testimonialNameInput.value.trim(),
+                    text: testimonialCommentInput.value.trim()
+                };
+
+                const existingTestimonials = getTestimonials();
+                const updatedTestimonials = [newTestimonial, ...existingTestimonials];
+                saveTestimonials(updatedTestimonials);
+                renderTestimonials();
+                testimonialForm.reset();
+                testimonialForm.classList.remove('was-validated');
+            });
+        }
+
+        renderTestimonials();
+
+        if (navMenu && navBackdrop) {
+            const setNavState = (isOpen) => {
+                navBackdrop.classList.toggle('active', isOpen);
+                document.body.classList.toggle('overflow-hidden', isOpen);
+            };
+
+            navMenu.addEventListener('shown.bs.collapse', () => setNavState(true));
+            navMenu.addEventListener('hidden.bs.collapse', () => setNavState(false));
+
+            navMenu.querySelectorAll('.nav-link, .nav-cta').forEach((link) => {
+                link.addEventListener('click', () => {
+                    const collapse = bootstrap.Collapse.getInstance(navMenu) || new bootstrap.Collapse(navMenu, { toggle: false });
+                    collapse.hide();
+                });
+            });
+
+            navBackdrop.addEventListener('click', () => {
+                const collapse = bootstrap.Collapse.getInstance(navMenu) || new bootstrap.Collapse(navMenu, { toggle: false });
+                collapse.hide();
+            });
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        const yearElement = document.getElementById('year');
+        if (yearElement) {
+            yearElement.textContent = new Date().getFullYear();
+        }
+    </script>
+</body>
+
+</html>
